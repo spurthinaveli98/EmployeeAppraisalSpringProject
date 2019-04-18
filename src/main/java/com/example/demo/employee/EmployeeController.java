@@ -16,21 +16,23 @@ public class EmployeeController {
 
     @GetMapping(value = "/getEmployees")
     public List<Employee> getAllControllerEmployees() {
-
-           // return objectiveService.getAllParentObjectives();
-         return employeeService.getAllServiceEmployees();
+        return employeeService.getAllServiceEmployees();
     }
 
     @PostMapping(value = "/addEmployee")
     public void addEmployee(@RequestBody JsonNode json) {
-            employeeService.addServiceEmployee(json);
-
+        employeeService.addServiceEmployee(json);
     }
 
-//    @DeleteMapping(value = "/delEmployee/{employeeId}")
-//    public void deleteEmployee(@PathVariable Long employeeId) {
-//
-//        employeeService.deleteServiceEmployee(employeeId);
-//    }
+    @DeleteMapping(value = "/delEmployee/{employeeId}")
+    public void deleteEmployee(@PathVariable Long employeeId) {
+        employeeService.deleteServiceEmployee(employeeId);
+    }
 
+    @PutMapping(value = "/updateEmployee/{id}")
+    public void updateObjective(@RequestBody JsonNode json, @PathVariable Long id) {
+        employeeService.updateServiceEmployee(json, id);
+    }
 }
+
+

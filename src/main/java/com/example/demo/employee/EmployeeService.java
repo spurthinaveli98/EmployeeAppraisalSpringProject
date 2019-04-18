@@ -38,6 +38,9 @@ public class EmployeeService {
         String increment = salaryIncrement(quality,quantity);
         employee.setIncrement(increment);
 
+        String role = assignSuitableRole(technicalKnowledge);
+        employee.setSuitableJobRole(role);
+
         return employeeRepository.save(employee);
     }
 
@@ -67,11 +70,43 @@ public class EmployeeService {
         return increment;
     }
 
+    public static String assignSuitableRole(String technicalKnowledge) {
+        String role;
 
-//    public void deleteServiceEmployee(Long employeeId) {
-//        Employee employee=employeeRepository.getOneById(employeeId);
-//        employeeRepository.save(employee);
-//    }
+        if (technicalKnowledge.equalsIgnoreCase(String.valueOf(LevelEnum.Level.High))) {
+            role= "Manager"; }
+        else if(technicalKnowledge.equalsIgnoreCase(String.valueOf(LevelEnum.Level.Medium))) {
+            role = "Developer"; }
+        else { role = "Tester"; }
+        return role;
+    }
 
+    public void deleteServiceEmployee(Long employeeId) {
+        employeeRepository.delete(employeeRepository.getOne(employeeId));
+    }
+
+    public Employee updateServiceEmployee(JsonNode json, Long employeeId) {
+        Employee employee = employeeRepository.getOne(employeeId);
+
+            String quality = json.get("quality").asText();
+            employee.setQuality(quality);
+
+            String quantity = json.get("quantity").asText();
+            employee.setQuantity(quantity);
+
+            String technicalKnowledge = json.get("technicalKnowledge").asText();
+            employee.setTechnicalKnowledge(technicalKnowledge);
+
+            Integer grades = json.get("grades").asInt();
+            employee.setGrades(grades);
+
+        String increment = salaryIncrement(quality,quantity);
+        employee.setIncrement(increment);
+
+        String role = assignSuitableRole(technicalKnowledge);
+        employee.setSuitableJobRole(role);
+
+        return employeeRepository.save(employee);
+    }
 
 }

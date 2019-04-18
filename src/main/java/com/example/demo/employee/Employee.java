@@ -28,10 +28,10 @@ public class Employee {
     @Column
     private String increment;
 
-    public void setEmployeeName(String employeeName) {
+    @Column
+    private String suitableJobRole;
 
-        this.employeeName = employeeName;
-    }
+    public void setEmployeeName(String employeeName) { this.employeeName = employeeName; }
 
     public void setQuality(String quality) {
         this.quality = quality;
@@ -53,9 +53,9 @@ public class Employee {
         this.increment = increment;
     }
 
-    public long getEmployeeId() {
-        return employeeId;
-    }
+    public void setSuitableJobRole(String suitableJobRole) { this.suitableJobRole = suitableJobRole; }
+
+    public long getEmployeeId() { return employeeId; }
 
     public String getEmployeeName() {
         return employeeName;
@@ -80,5 +80,7 @@ public class Employee {
     public String getIncrement() {
         return increment;
     }
+
+    public String getSuitableJobRole() { return suitableJobRole; }
 
 }
