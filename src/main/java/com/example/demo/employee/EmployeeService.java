@@ -11,14 +11,21 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllServiceEmployees() {
+    public List<Employee> getEmployees() {
 
         return employeeRepository.findAll();
     }
 
-    public Employee addServiceEmployee(JsonNode json) {
+    public Employee getEmployee(Long id){
+        return employeeRepository.findAllById(id);
+    }
+
+    public Employee addEmployee(JsonNode json) {
 
         Employee employee = new Employee();
+
+        String employeeId = json.get("employeeId").asText();
+        employee.setEmployeeId(employeeId);
 
         String name = json.get("employeeName").asText();
         employee.setEmployeeName(name);
@@ -81,12 +88,12 @@ public class EmployeeService {
         return role;
     }
 
-    public void deleteServiceEmployee(Long employeeId) {
-        employeeRepository.delete(employeeRepository.getOne(employeeId));
+    public void deleteEmployee(Long id) {
+        employeeRepository.delete(employeeRepository.getOne(id));
     }
 
-    public Employee updateServiceEmployee(JsonNode json, Long employeeId) {
-        Employee employee = employeeRepository.getOne(employeeId);
+    public Employee updateEmployee(JsonNode json, Long id) {
+        Employee employee = employeeRepository.getOne(id);
 
             String quality = json.get("quality").asText();
             employee.setQuality(quality);

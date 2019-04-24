@@ -8,7 +8,10 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employeeId;
+    private long id;
+
+    @Column(unique = true,nullable = false)
+    private String employeeId;
 
     @Column(nullable = false)
     private String employeeName;
@@ -30,6 +33,8 @@ public class Employee {
 
     @Column
     private String suitableJobRole;
+
+    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
 
     public void setEmployeeName(String employeeName) { this.employeeName = employeeName; }
 
@@ -55,7 +60,9 @@ public class Employee {
 
     public void setSuitableJobRole(String suitableJobRole) { this.suitableJobRole = suitableJobRole; }
 
-    public long getEmployeeId() { return employeeId; }
+    public long getId() { return id; }
+
+    public String getEmployeeId() { return employeeId; }
 
     public String getEmployeeName() {
         return employeeName;
