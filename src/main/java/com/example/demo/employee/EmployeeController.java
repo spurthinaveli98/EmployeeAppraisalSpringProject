@@ -6,16 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Date;
 import java.util.List;
 
-
+@CrossOrigin(origins="*")
 @RestController
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping(value = "/getEmployees")
+    @GetMapping("/api/hello")
+    public String hello() {
+        return "Hello, the time at the server is now " + new Date() + "\n";
+    }
+
+    @GetMapping(value = "/Employees")
     public List<Employee> getEmployees() throws Exception{
         List<Employee> allInfo = employeeService.getEmployees();
         if(allInfo.isEmpty())
@@ -23,7 +29,7 @@ public class EmployeeController {
             return allInfo;
     }
 
-    @GetMapping(value = "/getEmployee/{id}")
+    @GetMapping(value = "/Employee/{id}")
     public Employee getEmployee(@PathVariable Long id) throws Exception{
         Employee info = employeeService.getEmployee(id);
                 try{
@@ -35,7 +41,7 @@ public class EmployeeController {
                 }
     }
 
-    @PostMapping(value = "/addEmployee")
+    @PostMapping(value = "/Employee")
     public void addEmployee(@RequestBody JsonNode json)throws Exception {
         try{
         employeeService.addEmployee(json);
@@ -45,7 +51,7 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping(value = "/delEmployee/{id}")
+    @DeleteMapping(value = "/Employee/{id}")
     public void deleteEmployee(@PathVariable Long id) throws Exception  {
         try {
         employeeService.deleteEmployee(id);
@@ -55,7 +61,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping(value = "/updateEmployee/{id}")
+    @PutMapping(value = "/Employee/{id}")
     public void updateEmployee(@RequestBody JsonNode json, @PathVariable Long id) throws Exception {
         try {
             employeeService.updateEmployee(json, id);
